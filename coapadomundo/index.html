@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copa do Mundo Brasil - A Paixão de Uma Nação</title>
+    <style>
+        /* ===== RESET E VARIÁVEIS GLOBAIS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --verde-brasil: #009739;
+            --amarelo-brasil: #FEDD00;
+            --azul-brasil: #002776;
+            --branco: #FFFFFF;
+            --preto: #000000;
+            --cinza-escuro: #1a1a1a;
+            --cinza-claro: #f5f5f5;
+            --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--cinza-escuro);
+            background: var(--branco);
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="8" fill="%23009739"/><circle cx="16" cy="16" r="6" fill="none" stroke="%23FEDD00" stroke-width="2"/></svg>') 16 16, auto;
+        }
+
+        /* ===== ANIMAÇÕES GLOBAIS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes floatingEffect {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes parallaxMove {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50px);
+            }
+        }
+
+        @keyframes glowHover {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 151, 57, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(0, 151, 57, 0.6), 0 0 50px rgba(253, 221, 0, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(0, 151, 57, 0.3);
+            }
+        }
+
+        @keyframes typingEffect {
+            from {
+                width: 0;
+                border-right: 3px solid var(--amarelo-brasil);
+            }
+            to {
+                width: 100%;
+                border-right: 3px solid var(--amarelo-brasil);
+            }
+        }
+
+        @keyframes scrollReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(var(--tx, 0));
+            }
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes waveAnimation {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes neonGlow {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--verde-brasil), 0 0 20px var(--amarelo-brasil);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--verde-brasil), 0 0 40px var(--amarelo-brasil), 0 0 60px var(--azul-brasil);
+            }
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes backgroundShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ===== HEADER / NAVEGAÇÃO ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.6s var(--ease-out);
+            border-bottom: 2px solid var(--amarelo-brasil);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--amarelo-brasil);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeIn 0.8s var(--ease-out) 0.2s both;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--branco);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s var(--ease-out);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--amarelo-brasil);
+            transition: width 0.3s var(--ease-out);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--amarelo-brasil);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--azul-brasil) 0%, var(--verde-brasil) 50%, var(--amarelo-brasil) 100%);
+            background-size: 400% 400%;
+            animation: backgroundShift 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 151, 57, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(253, 221, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 0%, rgba(0, 39, 118, 0.2) 0%, transparent 50%);
+            animation: parallaxMove 20s ease-in-out infinite;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: slideUp 1s var(--ease-out) 0.3s both;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--branco);
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            animation: neonGlow 3s ease-in-out infinite;
+        }
+
+        .hero-content p {
+            font-size: 1.8rem;
+            color: var(--amarelo-brasil);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: fadeIn 1.2s var(--ease-out) 0.6s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1.4s var(--ease-out) 0.8s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s var(--ease-out);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--amarelo-brasil);
+            color: var(--azul-brasil);
+            box-shadow: 0 10px 30px rgba(253, 221, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(253, 221, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--branco);
+            border: 2px solid var(--amarelo-brasil);
+        }
+
+        .btn-secondary:hover {
+            background: var(--amarelo-brasil);
+            color: var(--azul-brasil);
+            transform: translateY(-3px);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ===== PARTÍCULAS ===== */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--amarelo-brasil);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: particleFloat 3s ease-out forwards;
+        }
+
+        /* ===== COUNTDOWN SECTION ===== */
+        .countdown-section {
+            background: var(--cinza-escuro);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--branco);
+        }
+
+        .countdown-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--amarelo-brasil);
+            animation: slideUp 0.8s var(--ease-out);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            animation: fadeIn 1s var(--ease-out) 0.3s both;
+        }
+
+        .countdown-item {
+            background: linear-gradient(135deg, var(--verde-brasil), var(--azul-brasil));
+            padding: 2rem;
+            border-radius: 15px;
+            min-width: 120px;
+            box-shadow: 0 10px 30px rgba(0, 151, 57, 0.3);
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(253, 221, 0, 0.4);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--amarelo-brasil);
+            animation: countUp 0.6s var(--ease-out);
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--branco);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== SELEÇÃO BRASILEIRA SECTION ===== */
+        .selection-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--cinza-claro) 0%, var(--branco) 100%);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--azul-brasil);
+            animation: slideUp 0.8s var(--ease-out);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--verde-brasil);
+            margin-bottom: 3rem;
+            animation: fadeIn 1s var(--ease-out) 0.2s both;
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .player-card {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s var(--ease-out);
+            animation: slideUp 0.8s var(--ease-out) forwards;
+            opacity: 0;
+        }
+
+        .player-card:nth-child(1) { animation-delay: 0.1s; }
+        .player-card:nth-child(2) { animation-delay: 0.2s; }
+        .player-card:nth-child(3) { animation-delay: 0.3s; }
+        .player-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .player-card:hover {
+            transform: translateY(-20px) rotateX(5deg);
+            box-shadow: 0 30px 60px rgba(0, 151, 57, 0.3), 0 0 40px rgba(253, 221, 0, 0.2);
+            animation: glowHover 1.5s ease-in-out infinite;
+        }
+
+        .player-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--verde-brasil), var(--amarelo-brasil));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--branco);
+            box-shadow: 0 10px 30px rgba(0, 151, 57, 0.3);
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .player-card:hover .player-image {
+            transform: scale(1.1) rotateZ(10deg);
+        }
+
+        .player-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--azul-brasil);
+            margin-bottom: 0.5rem;
+        }
+
+        .player-position {
+            color: var(--verde-brasil);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== ESTATÍSTICAS SECTION ===== */
+        .stats-section {
+            background: linear-gradient(135deg, var(--azul-brasil) 0%, var(--verde-brasil) 100%);
+            padding: 5rem 2rem;
+            color: var(--branco);
+        }
+
+        .stats-section .section-title {
+            color: var(--amarelo-brasil);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s var(--ease-out);
+            animation: slideUp 0.8s var(--ease-out) forwards;
+            opacity: 0;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(253, 221, 0, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--amarelo-brasil);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--branco);
+        }
+
+        /* ===== TIMELINE SECTION ===== */
+        .timeline-section {
+            padding: 5rem 2rem;
+            background: var(--branco);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--verde-brasil), var(--amarelo-brasil), var(--azul-brasil));
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            animation: slideUp 0.8s var(--ease-out) forwards;
+            opacity: 0;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: 52%;
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: 52%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--amarelo-brasil);
+            border: 3px solid var(--branco);
+            border-radius: 50%;
+            top: 0;
+            box-shadow: 0 0 20px rgba(253, 221, 0, 0.6);
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            width: 30px;
+            height: 30px;
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 0 40px rgba(253, 221, 0, 1);
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, var(--verde-brasil), var(--azul-brasil));
+            padding: 1.5rem;
+            border-radius: 10px;
+            color: var(--branco);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .timeline-item:hover .timeline-content {
+            box-shadow: 0 10px 40px rgba(0, 151, 57, 0.4);
+            transform: scale(1.05);
+        }
+
+        .timeline-year {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--amarelo-brasil);
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== GALERIA SECTION ===== */
+        .gallery-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--cinza-claro) 0%, var(--branco) 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s var(--ease-out);
+            animation: slideUp 0.8s var(--ease-out) forwards;
+            opacity: 0;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--verde-brasil), var(--amarelo-brasil));
+            opacity: 0.3;
+            z-index: 2;
+            transition: opacity 0.3s var(--ease-out);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 151, 57, 0.4);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--verde-brasil), var(--azul-brasil));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--amarelo-brasil);
+        }
+
+        .gallery-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: var(--branco);
+            padding: 1.5rem;
+            z-index: 3;
+            transform: translateY(100%);
+            transition: transform 0.3s var(--ease-out);
+        }
+
+        .gallery-item:hover .gallery-label {
+            transform: translateY(0);
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s var(--ease-out);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 20px;
+            overflow: hidden;
+            animation: zoomIn 0.3s var(--ease-out);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--verde-brasil), var(--azul-brasil));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--amarelo-brasil);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--amarelo-brasil);
+            color: var(--azul-brasil);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
+            z-index: 2001;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1) rotateZ(90deg);
+        }
+
+        /* ===== CURIOSIDADES SECTION ===== */
+        .curiosities-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--azul-brasil) 0%, var(--verde-brasil) 100%);
+            color: var(--branco);
+        }
+
+        .curiosities-section .section-title {
+            color: var(--amarelo-brasil);
+        }
+
+        .curiosities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .curiosity-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s var(--ease-out);
+            animation: slideUp 0.8s var(--ease-out) forwards;
+            opacity: 0;
+        }
+
+        .curiosity-card:nth-child(1) { animation-delay: 0.1s; }
+        .curiosity-card:nth-child(2) { animation-delay: 0.2s; }
+        .curiosity-card:nth-child(3) { animation-delay: 0.3s; }
+        .curiosity-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .curiosity-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(253, 221, 0, 0.3);
+        }
+
+        .curiosity-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .curiosity-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--amarelo-brasil);
+        }
+
+        .curiosity-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== QUIZ SECTION ===== */
+        .quiz-section {
+            padding: 5rem 2rem;
+            background: var(--cinza-claro);
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--branco);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.8s var(--ease-out);
+        }
+
+        .quiz-question {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--azul-brasil);
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s var(--ease-out);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid var(--verde-brasil);
+            border-radius: 10px;
+            background: var(--branco);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
+            font-weight: 500;
+            color: var(--azul-brasil);
+        }
+
+        .quiz-option:hover {
+            background: var(--amarelo-brasil);
+            color: var(--azul-brasil);
+            transform: translateX(10px);
+        }
+
+        .quiz-option.selected {
+            background: var(--verde-brasil);
+            color: var(--branco);
+            border-color: var(--verde-brasil);
+        }
+
+        .quiz-option.correct {
+            background: var(--verde-brasil);
+            color: var(--branco);
+            border-color: var(--verde-brasil);
+        }
+
+        .quiz-option.incorrect {
+            background: #ff6b6b;
+            color: var(--branco);
+            border-color: #ff6b6b;
+        }
+
+        .quiz-score {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--verde-brasil);
+            margin: 2rem 0;
+            animation: zoomIn 0.5s var(--ease-out);
+        }
+
+        .quiz-button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--verde-brasil);
+            color: var(--branco);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .quiz-button:hover {
+            background: var(--azul-brasil);
+            transform: translateY(-3px);
+        }
+
+        /* ===== TABELA CLASSIFICAÇÃO ===== */
+        .standings-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--branco) 0%, var(--cinza-claro) 100%);
+        }
+
+        .standings-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: slideUp 0.8s var(--ease-out);
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--branco);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .standings-table thead {
+            background: linear-gradient(135deg, var(--azul-brasil), var(--verde-brasil));
+            color: var(--branco);
+        }
+
+        .standings-table th {
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .standings-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--cinza-claro);
+        }
+
+        .standings-table tbody tr {
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .standings-table tbody tr:hover {
+            background: linear-gradient(90deg, rgba(0, 151, 57, 0.1), rgba(253, 221, 0, 0.1));
+            transform: scale(1.02);
+        }
+
+        .standings-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .team-name {
+            font-weight: 600;
+            color: var(--azul-brasil);
+        }
+
+        .team-flag {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        /* ===== VÍDEO SECTION ===== */
+        .video-section {
+            padding: 5rem 2rem;
+            background: var(--cinza-escuro);
+            color: var(--branco);
+        }
+
+        .video-section .section-title {
+            color: var(--amarelo-brasil);
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            animation: slideUp 0.8s var(--ease-out);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 151, 57, 0.3);
+            border: 3px solid var(--amarelo-brasil);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-neon {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--verde-brasil), var(--amarelo-brasil), var(--azul-brasil));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(20px);
+            animation: neonGlow 3s ease-in-out infinite;
+        }
+
+        /* ===== MAPA ESTÁDIOS SECTION ===== */
+        .stadiums-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--verde-brasil) 0%, var(--azul-brasil) 100%);
+            color: var(--branco);
+        }
+
+        .stadiums-section .section-title {
+            color: var(--amarelo-brasil);
+        }
+
+        .stadiums-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stadium-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s var(--ease-out);
+            animation: slideUp 0.8s var(--ease-out) forwards;
+            opacity: 0;
+        }
+
+        .stadium-card:nth-child(1) { animation-delay: 0.1s; }
+        .stadium-card:nth-child(2) { animation-delay: 0.2s; }
+        .stadium-card:nth-child(3) { animation-delay: 0.3s; }
+        .stadium-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .stadium-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(253, 221, 0, 0.3);
+        }
+
+        .stadium-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .stadium-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--amarelo-brasil);
+            margin-bottom: 0.5rem;
+        }
+
+        .stadium-city {
+            font-size: 0.95rem;
+            color: var(--branco);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--cinza-escuro);
+            color: var(--branco);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--amarelo-brasil);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--amarelo-brasil);
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.8s var(--ease-out);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--verde-brasil), var(--azul-brasil));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--amarelo-brasil);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
+            animation: slideUp 0.8s var(--ease-out) forwards;
+            opacity: 0;
+        }
+
+        .social-link:nth-child(1) { animation-delay: 0.1s; }
+        .social-link:nth-child(2) { animation-delay: 0.2s; }
+        .social-link:nth-child(3) { animation-delay: 0.3s; }
+        .social-link:nth-child(4) { animation-delay: 0.4s; }
+
+        .social-link:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(253, 221, 0, 0.4);
+        }
+
+        .footer-text {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--branco);
+            opacity: 0.8;
+        }
+
+        .footer-text p {
+            margin: 0.5rem 0;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item {
+                padding-left: 3rem !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 0;
+            }
+
+            .countdown {
+                gap: 1rem;
+            }
+
+            .countdown-item {
+                min-width: 100px;
+                padding: 1.5rem 1rem;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                margin-top: 120px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .players-grid,
+            .stats-grid,
+            .curiosities-grid,
+            .stadiums-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown {
+                flex-direction: column;
+            }
+
+            .countdown-item {
+                width: 100%;
+            }
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .scroll-reveal.active {
+            animation: scrollReveal 0.8s var(--ease-out) forwards;
+        }
+
+        /* ===== MOUSE TRACKING ===== */
+        .mouse-track {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--amarelo-brasil);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+            display: none;
+        }
+
+        .mouse-track.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="logo">⚽ BRASIL</div>
+        <nav>
+            <a href="#hero">Início</a>
+            <a href="#selection">Seleção</a>
+            <a href="#timeline">História</a>
+            <a href="#gallery">Galeria</a>
+            <a href="#quiz">Quiz</a>
+            <a href="#stadiums">Estádios</a>
+        </nav>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="hero">
+        <div class="particles-container" id="particlesContainer"></div>
+        <div class="hero-content">
+            <h1>COPA DO MUNDO BRASIL</h1>
+            <p>A paixão de uma nação pelo futebol</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('selection')">Explorar</button>
+                <button class="btn btn-secondary" onclick="scrollToSection('selection')">Ver Seleção</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COUNTDOWN SECTION ===== -->
+    <section class="countdown-section">
+        <h2>⏱️ Contagem Regressiva para a Copa</h2>
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">0</div>
+                <div class="countdown-label">Dias</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">0</div>
+                <div class="countdown-label">Horas</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">0</div>
+                <div class="countdown-label">Minutos</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">0</div>
+                <div class="countdown-label">Segundos</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SELEÇÃO BRASILEIRA SECTION ===== -->
+    <section class="selection-section" id="selection">
+    <h2 class="section-title">🇧🇷 Seleção Brasileira</h2>
+    <p class="section-subtitle">Conheça os craques da Seleção Brasileira</p>
+
+    <div class="players-grid">
+
+        <div class="player-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAXcL6ekqKG7AX2hDLGNy3fZXjaPHCUIRWw&s" alt="Alisson Becker" class="player-image">
+            <div class="player-name">Alisson</div>
+            <div class="player-position">Goleiro</div>
+        </div>
+
+        <div class="player-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHJJAhvUwtaThO2wBhf4gjF6s_iw87559nXA&s" alt="Marquinhos" class="player-image">
+            <div class="player-name">Marquinhos</div>
+            <div class="player-position">Zagueiro</div>
+        </div>
+
+        <div class="player-card">
+            <img src="https://forbes.com.br/wp-content/uploads/2023/12/carreira-vini-jr-premio.jpg" alt="Vinícius Júnior" class="player-image">
+            <div class="player-name">Vinícius Júnior</div>
+            <div class="player-position">Atacante</div>
+        </div>
+
+        <div class="player-card">
+            <img src="https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/09/GettyImages-1668971338-e1694439970587.jpg?w=1200&h=1200&crop=1" alt="Neymar Jr" class="player-image">
+            <div class="player-name">Neymar Jr</div>
+            <div class="player-position">Atacante</div>
+        </div>
+
+    </div>
+</section>
+
+    <!-- ===== ESTATÍSTICAS SECTION ===== -->
+    <section class="stats-section">
+        <h2 class="section-title">📊 Estatísticas Impressionantes</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="stat1">5</div>
+                <div class="stat-label">Títulos Mundiais</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat2">114</div>
+                <div class="stat-label">Jogos na Copa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat3">237</div>
+                <div class="stat-label">Gols Marcados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat4">76</div>
+                <div class="stat-label">Vitórias</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TIMELINE SECTION ===== -->
+    <section class="timeline-section" id="timeline">
+        <h2 class="section-title">⭐ Linha do Tempo - Títulos Mundiais</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1958</div>
+                    <div class="timeline-title">Primeiro Título Mundial</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1962</div>
+                    <div class="timeline-title">Bicampeão</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1970</div>
+                    <div class="timeline-title">Tricampeão</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1994</div>
+                    <div class="timeline-title">Tetracampeão</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2002</div>
+                    <div class="timeline-title">Pentacampeão</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MODAL ===== -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-image" id="modalImage">🇧🇷</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+
+
+    <!-- ===== QUIZ SECTION ===== -->
+    <section class="quiz-section" id="quiz">
+        <h2 class="section-title">🎮 Quiz Interativo</h2>
+        <div class="quiz-container">
+            <div class="quiz-question" id="quizQuestion">Quantas Copas do Mundo o Brasil possui?</div>
+            <div class="quiz-options" id="quizOptions"></div>
+            <button class="quiz-button" id="quizButton" onclick="nextQuestion()">Próxima Pergunta</button>
+            <div class="quiz-score" id="quizScore" style="display: none;"></div>
+        </div>
+    </section>
+
+    <!-- ===== STANDINGS SECTION ===== -->
+    <section class="standings-section">
+        <h2 class="section-title">🏅 Tabela de Classificação - Só Simulação Grupo </h2>
+        <div class="standings-container">
+            <table class="standings-table">
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>País</th>
+                        <th>Pontos</th>
+                        <th>Jogos</th>
+                        <th>Vitórias</th>
+                        <th>Saldo de Gols</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1º</td>
+                        <td><span class="team-flag">🇧🇷</span><span class="team-name">Brasil</span></td>
+                        <td><strong>9</strong></td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>+8</td>
+                    </tr>
+                    <tr>
+                        <td>2º</td>
+                        <td><span class="team-flag">🇫🇷</span><span class="team-name">França</span></td>
+                        <td><strong>6</strong></td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>+4</td>
+                    </tr>
+                    <tr>
+                        <td>3º</td>
+                        <td><span class="team-flag">🇩🇪</span><span class="team-name">Alemanha</span></td>
+                        <td><strong>3</strong></td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>-2</td>
+                    </tr>
+                    <tr>
+                        <td>4º</td>
+                        <td><span class="team-flag">🇯🇵</span><span class="team-name">Japão</span></td>
+                        <td><strong>0</strong></td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>-10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ===== VÍDEO SECTION ===== -->
+    <section class="video-section">
+        <h2 class="section-title">🎬 Vídeo Oficial da Seleção</h2>
+        <div class="video-container">
+            <div class="video-neon"></div>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ESTÁDIOS SECTION ===== -->
+    <section class="stadiums-section" id="stadiums">
+        <h2 class="section-title">🏟️ Principais Estádios</h2>
+        <div class="stadiums-grid">
+            <div class="stadium-card">
+                <div class="stadium-icon">🏟️</div>
+                <div class="stadium-name">Maracanã</div>
+                <div class="stadium-city">Rio de Janeiro</div>
+            </div>
+            <div class="stadium-card">
+                <div class="stadium-icon">🏟️</div>
+                <div class="stadium-name">Mané Garrincha</div>
+                <div class="stadium-city">Brasília</div>
+            </div>
+            <div class="stadium-card">
+                <div class="stadium-icon">🏟️</div>
+                <div class="stadium-name">Mineirão</div>
+                <div class="stadium-city">Belo Horizonte</div>
+            </div>
+            <div class="stadium-card">
+                <div class="stadium-icon">🏟️</div>
+                <div class="stadium-name">Arena Corinthians</div>
+                <div class="stadium-city">São Paulo</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">⚽ BRASIL CAMPEÃO</div>
+            <div class="social-links">
+                <div class="social-link" onclick="alert('Instagram: @brasil')">📱</div>
+                <div class="social-link" onclick="alert('Twitter: @brasil')">🐦</div>
+                <div class="social-link" onclick="alert('Facebook: Brasil')">👍</div>
+                <div class="social-link" onclick="alert('YouTube: CBF')">▶️</div>
+            </div>
+            <div class="footer-text">
+                <p>© 2026 Copa do Mundo Brasil - Todos os direitos reservados</p>
+                <p>Desenvolvido com ❤️ para os apaixonados por futebol</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== MOUSE TRACKING ===== -->
+    <div class="mouse-track" id="mouseTrack"></div>
+
+    <script>
+        // ===== COUNTDOWN TIMER =====
+        function updateCountdown() {
+            const targetDate = new Date('2026-06-21T00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // ===== SCROLL REVEAL =====
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        // ===== PARTICLES EFFECT =====
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // ===== CONFETTI EFFECT =====
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.background = ['var(--verde-brasil)', 'var(--amarelo-brasil)', 'var(--azul-brasil)'][Math.floor(Math.random() * 3)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.zIndex = '9998';
+                confetti.style.animation = `confetti ${Math.random() * 2 + 2}s ease-out forwards`;
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // ===== MODAL FUNCTIONS =====
+        function openModal(index) {
+            const modal = document.getElementById('modal');
+            const images = ['🇧🇷', '👥', '🏟️', '🏆', '⚽', '🎉'];
+            document.getElementById('modalImage').textContent = images[index];
+            modal.classList.add('active');
+            createConfetti();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ===== QUIZ FUNCTIONS =====
+        const quizData = [
+            {
+                question: 'Quantas Copas do Mundo o Brasil possui?',
+                options: ['3', '4', '5', '6'],
+                correct: 2
+            },
+            {
+                question: 'Quem marcou o gol do pentacampeonato?',
+                options: ['Ronaldo', 'Ronaldinho', 'Pelé', 'Neymar'],
+                correct: 0
+            },
+            {
+                question: 'Em que ano o Brasil ganhou sua primeira Copa?',
+                options: ['1950', '1958', '1962', '1970'],
+                correct: 1
+            },
+            {
+                question: 'Qual é a cor principal da Seleção Brasileira?',
+                options: ['Azul', 'Amarelo', 'Verde', 'Branco'],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const quiz = quizData[currentQuestion];
+            document.getElementById('quizQuestion').textContent = quiz.question;
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+
+            quiz.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectOption(index);
+                optionDiv.id = 'option-' + index;
+                optionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function selectOption(index) {
+            const quiz = quizData[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+
+            if (index === quiz.correct) {
+                document.getElementById('option-' + index).classList.add('correct');
+                score++;
+                createConfetti();
+            } else {
+                document.getElementById('option-' + index).classList.add('incorrect');
+                document.getElementById('option-' + quiz.correct).classList.add('correct');
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showScore();
+            }
+        }
+
+        function showScore() {
+            document.getElementById('quizQuestion').style.display = 'none';
+            document.getElementById('quizOptions').style.display = 'none';
+            document.getElementById('quizButton').style.display = 'none';
+            const scoreDiv = document.getElementById('quizScore');
+            scoreDiv.style.display = 'block';
+            scoreDiv.textContent = `Você acertou ${score} de ${quizData.length} perguntas! 🎉`;
+        }
+
+        loadQuestion();
+
+        // ===== MOUSE TRACKING =====
+        document.addEventListener('mousemove', (e) => {
+            const track = document.getElementById('mouseTrack');
+            track.style.left = (e.clientX - 10) + 'px';
+            track.style.top = (e.clientY - 10) + 'px';
+        });
+
+        // ===== SMOOTH SCROLL =====
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // ===== BUTTON CLICK EFFECT =====
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                createConfetti();
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // ===== ANIMATE NUMBERS ON SCROLL =====
+        function animateNumbers() {
+            const stats = [
+                { id: 'stat1', target: 5 },
+                { id: 'stat2', target: 114 },
+                { id: 'stat3', target: 237 },
+                { id: 'stat4', target: 76 }
+            ];
+
+            stats.forEach(stat => {
+                const element = document.getElementById(stat.id);
+                let current = 0;
+                const increment = stat.target / 30;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= stat.target) {
+                        element.textContent = stat.target;
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(current);
+                    }
+                }, 50);
+            });
+        }
+
+        // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    if (entry.target.classList.contains('stats-grid')) {
+                        animateNumbers();
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.player-card, .stat-card, .curiosity-card, .stadium-card, .timeline-item, .gallery-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== RIPPLE ANIMATION =====
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ===== INITIAL ANIMATIONS =====
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.player-card, .stat-card, .curiosity-card, .stadium-card, .timeline-item, .gallery-item, .social-link').forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.animation = `slideUp 0.8s var(--ease-out) ${index * 0.1}s forwards`;
+            });
+        });
+    </script>
+</body>
+</html>
